@@ -6,7 +6,7 @@ GET http://localhost:8080/api/task
 
 # Apagar
 DELETE http://localhost:8080/api/task/1
-
+Authorization: Basic joao@fiap.com.br 123
 ###
 
 # Cadastrar

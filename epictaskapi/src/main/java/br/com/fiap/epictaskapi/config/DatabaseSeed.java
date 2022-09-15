@@ -33,9 +33,25 @@ public class DatabaseSeed implements CommandLineRunner {
             new User()
                 .name("João")
                 .email("joao@fiap.com.br")
+                .password(passwordEncoder.encode("123")
+                ) 
+        );
+
+        userRepository.save(
+            new User()
+                .name("Gabriel")
+                .email("gabriel@fiap.com.br")
                 .password(passwordEncoder.encode("123")) 
         );
 
+        userRepository.save(
+            new User()
+                .name("Nathan")
+                .email("nathan@fiap.com.br")
+                .password(passwordEncoder.encode("123")) 
+        );
+
+        
         taskRepository.saveAll(List.of(
             new Task("Modelar BD", "modelar tabelas do banco", 150),
             new Task("Prototipo", "prototipar as telas", 20),
@@ -47,6 +63,8 @@ public class DatabaseSeed implements CommandLineRunner {
             new Task("Internacionalização", "prototipar as telas", 70),
             new Task("Bug", "corrigir erro da API", 50)
         ));
+
+        
     }
     
 }
