@@ -28,7 +28,7 @@ public class DatabaseSeed implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        
         userRepository.save(
             new User()
                 .name("João")
@@ -48,7 +48,7 @@ public class DatabaseSeed implements CommandLineRunner {
             new User()
                 .name("Nathan")
                 .email("nathan@fiap.com.br")
-                .password(passwordEncoder.encode("123")) 
+                .password(passwordEncoder.encode("123"))
         );
 
         

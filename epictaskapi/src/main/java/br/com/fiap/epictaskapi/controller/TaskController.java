@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @PostMapping
-    @PreAuthorize("authenticated()")
+    @PreAuthorize("authenticated")
     public ResponseEntity<Task> create(@RequestBody @Valid Task task){
         service.save(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(task);

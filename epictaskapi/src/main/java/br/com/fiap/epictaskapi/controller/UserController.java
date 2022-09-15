@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping
-    @PreAuthorize("authenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<User> create(@RequestBody @Valid User user){
         service.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @CacheEvict(value = "User", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
 
@@ -65,23 +65,24 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    // @PutMapping("{id}")
-    // public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid User newUser){
-    //     // buscar a tarefa no BD
-    //     Optional<User> optional = service.getById(id);
+    @PutMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid User newTask){
 
-    //     // verificar se existe tarefa com esse id
-    //     if(optional.isEmpty())
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        Optional<User> optional = service.getById(id);
 
-    //     // atualizar os dados no objeto
-    //     var User = optional.get();
-    //     BeanUtils.copyProperties(newUser, User);
-    //     User.setId(id);
 
-    //     // salvar no BD
-    //     service.save(User);
+        if(optional.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-    //     return ResponseEntity.ok(User);
-    // }
+
+        var user = optional.get();
+        BeanUtils.copyProperties(newTask, user);
+        user.setId(id);
+
+
+        service.save(user);
+
+        return ResponseEntity.ok(user);
+    }
 }
