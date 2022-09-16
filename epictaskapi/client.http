@@ -1,3 +1,9 @@
+# Listar Grupo
+GET http://localhost:8080/grupo
+#Authorization: Basic user 711e36f3-3952-4424-b7aa-97043923193f
+
+###
+
 # Listar Todas
 GET http://localhost:8080/api/task
 #Authorization: Basic user 711e36f3-3952-4424-b7aa-97043923193f
