@@ -40,7 +40,6 @@ public class UserController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<User> create(@RequestBody @Valid User user){
         service.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
@@ -52,7 +51,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("authenticated")
     @CacheEvict(value = "User", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
 
@@ -66,7 +65,7 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("authenticated")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid User newTask){
 
         Optional<User> optional = service.getById(id);
