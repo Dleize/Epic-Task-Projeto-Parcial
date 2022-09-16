@@ -100,4 +100,7 @@ public class User implements UserDetails {
         return true;
     }
 
+    public void setId(Long id2) {
+    }
+
 }

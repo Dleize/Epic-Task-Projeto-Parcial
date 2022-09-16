@@ -29,27 +29,28 @@ public class DatabaseSeed implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         
-        userRepository.save(
+        userRepository.saveAll(List.of(
+            new User()
+                .name("admin")
+                .email("admin@fiap.com.br")
+                .password(passwordEncoder.encode("administrador")),
+
             new User()
                 .name("João")
                 .email("joao@fiap.com.br")
-                .password(passwordEncoder.encode("123")
-                ) 
-        );
+                .password(passwordEncoder.encode("123")),
 
-        userRepository.save(
             new User()
                 .name("Gabriel")
                 .email("gabriel@fiap.com.br")
-                .password(passwordEncoder.encode("123")) 
-        );
+                .password(passwordEncoder.encode("123")),
+    
 
-        userRepository.save(
             new User()
                 .name("Nathan")
                 .email("nathan@fiap.com.br")
                 .password(passwordEncoder.encode("123"))
-        );
+        ));
 
         
         taskRepository.saveAll(List.of(

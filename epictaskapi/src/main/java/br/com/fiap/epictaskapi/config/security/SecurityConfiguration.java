@@ -29,29 +29,17 @@ public class SecurityConfiguration {
             .authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/api/task/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/task").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/task").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/task/**").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/user").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/user").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/user").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/user/").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/user/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/user/**").authenticated()
                 .anyRequest().denyAll()
             .and()
                 .csrf().disable()
         ;
 
        return http.build();
-    }
-
-    @Bean
-    public UserDetailsService users(){
-        UserDetails user = User
-        .builder()
-            .username("admin@fiap.com.br")
-            .password(new BCryptPasswordEncoder().encode("123"))
-            .roles("USER")
-        .build();
-
-        return new InMemoryUserDetailsManager(user);
     }
 
 

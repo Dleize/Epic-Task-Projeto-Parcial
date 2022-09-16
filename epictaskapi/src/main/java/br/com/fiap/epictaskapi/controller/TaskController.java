@@ -52,7 +52,7 @@ public class TaskController {
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("authenticated")
     @CacheEvict(value = "task", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
 
@@ -66,6 +66,7 @@ public class TaskController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("authenticated")
     public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody @Valid Task newTask){
         // buscar a tarefa no BD
         Optional<Task> optional = service.getById(id);
